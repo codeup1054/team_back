@@ -1,4 +1,4 @@
-const pool = require('../../db')
+const pool = require('../../db_env')
 const queries = require ("./team.queries")
 
 /**
