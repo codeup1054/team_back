@@ -1,6 +1,6 @@
 const express = require('express');
 const router = require('./src/team/team.routes');
-// const companyRoutes = require('./src/company/comp.routes');
+const companyRoutes = require('./src/company/comp.routes');
 const app = express();
 const port = 3000;
 app.use(express.json())
@@ -23,10 +23,8 @@ app.get("/", (req,res) => {
   res.send("Staff!")
 })
 
-app.use('/api/v1/employees/', router);
-// app.use('/api/v1/companies/', companyRoutes);
-
-
+app.use('/api/v1/team/', router);
+app.use('/api/v1/company/', companyRoutes);
 
 
 app.use(express.json())
