@@ -1,4 +1,4 @@
-const pool = require('../../db')
+const pool = require('../../db_env')
 const queries = require ("./comp.queries")
 
 /**
@@ -33,7 +33,7 @@ const addCompany = (req,res) => {
 
   pool.query(queries.checkCompanyExists, [company_name,id_ext], (error, results) => {
     if (results.rows.length) {
-      res.send("Company exist");
+      res.send(`Company exist ${company}`);
     } else {
       pool.query(queries.addCompany, [id,  id_ext, address,  contact,  status,  company_name], (error, results) => {
         if (error) throw error;
@@ -48,7 +48,7 @@ const deleteCompanyById = (req,res) => {
   console.log(`deleteCompanyById = ${id_ext}`);
 
   pool.query(queries.checkCompanyExists, [fio, id_ext], (error, results) => {
-    if (results.rows.length == 0) {
+    if (results.rows.length === 0) {
       res.send(`Emp not exist ${fio}, ${id_ext}`);
     } else {
       pool.query(queries.deleteCompanyById, [id_ext], (error, results) => {

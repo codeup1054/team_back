@@ -23,7 +23,7 @@ app.get("/", (req,res) => {
   res.send("Staff!")
 })
 
-app.use('/api/v1/employees/', router);
+app.use('/api/v1/team/', router);
 // app.use('/api/v1/companies/', companyRoutes);
 
 
