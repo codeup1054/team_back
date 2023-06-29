@@ -1,3 +1,4 @@
+
 const getCompanies = "Select * from companies order by id_ext desc ";
 const getCompanyById = "Select * from companies where id in ($1)";
 const checkCompanyExists  = "Select * from companies where fio = $1 or id_ext =$2";

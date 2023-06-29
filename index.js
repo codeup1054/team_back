@@ -1,6 +1,6 @@
 const express = require('express');
 const router = require('./src/team/team.routes');
-// const companyRoutes = require('./src/company/comp.routes');
+const dataRouter = require('./src/data/data.routes');
 const app = express();
 const port = 3000;
 app.use(express.json())
@@ -24,9 +24,7 @@ app.get("/", (req,res) => {
 })
 
 app.use('/api/v1/team/', router);
-// app.use('/api/v1/companies/', companyRoutes);
-
-
+app.use('/api/v1/data/', dataRouter);
 
 
 app.use(express.json())
