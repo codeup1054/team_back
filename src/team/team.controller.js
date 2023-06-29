@@ -1,31 +1,32 @@
 const pool = require('../../db_env')
 const queries = require ("./team.queries")
+const {json} = require("express");
 
 /**
 /*  *********** 01. EmployeeService 02 *************
 */
 
 
-const getEmployees = (req,res) => {
-  pool.query(queries.getEmployees, (error,result) => {
+const getTeam = (req, res) => {
+  pool.query(queries.getTeam, (error,result) => {
     if (error) throw error;
     res.status(200).json(result.rows);
   });
 };
 
-const getEmployeeById = (req,res) => {
+const getTeamMateById = (req,res) => {
   const id = parseInt(req.params.id);
   // const id = req.params.id;
-  console.log(`getEmployeeById = ${id}`);
+  console.log(`getTeamById = ${id}`);
 
-  pool.query(queries.getEmployeeById, [id], (error,results) => {
+  pool.query(queries.getTeamMateById, [id], (error,results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
   console.log("get emp");
 };
 
-const addEmployee = (req,res) => {
+const addTeamMate = (req,res) => {
 
   const {id_ext, status, fio, company, role, date_start, date_end, grade} = req.body;
   const body = req.body;
@@ -33,11 +34,11 @@ const addEmployee = (req,res) => {
   const bodyVals = `'${Object.values(body).join("','")}'`;
   console.log("@@ addEmployer", bodyKeys, bodyVals)
 
-  pool.query(queries.checkEmpExists, [fio,id_ext], (error, results) => {
+  pool.query(queries.checkTeamMateExists, [fio,id_ext], (error, results) => {
     if (results.rows.length) {
       res.send({err:"Fio or ID_ext  exist"});
     } else {
-      pool.query(queries.addEmployee, [id_ext, status, fio, company, role, date_start, date_end, grade] , (error, results) => {
+      pool.query(queries.addTeamMate, [id_ext, status, fio, company, role, date_start, date_end, grade] , (error, results) => {
         if (error) throw error;
         res.status(201).send(results.rows)
       });
@@ -46,39 +47,39 @@ const addEmployee = (req,res) => {
 }
 
 
-const deleteEmployeeById = (req,res) => {
-  const id_ext = parseInt(req.params.id);
-  console.log(`deleteEmployeeById = ${id_ext}`);
+const deleteTeamMateById = (req,res) => {
+  const id = parseInt(req.params.id);
 
-  pool.query(queries.checkEmpExists, [fio, id_ext], (error, results) => {
+  pool.query(queries.checkTeamMateExists, [id], (error, results) => {
+    console.log(`Try checkTeamMate = ${id}`);
     if (results.rows.length == 0) {
-      res.send(`Emp not exist ${fio}, ${id_ext}`);
+      res.send(`checkTeamMate not exist, ${id}`);
     } else {
-      pool.query(queries.deleteEmployeeById, [id_ext], (error, results) => {
+      pool.query(queries.deleteTeamMateById, [id], (error, results) => {
         if (error) throw error;
-        res.status(200).send(`Removed [${results}]`)
+        console.log(`checkTeamMateDeleted = ${id}`, this.query, results,
+            (queries.deleteTeamMateById,[id]),
+            JSON.stringify(results));
+
+        res.status(200).send(`Removed [${JSON.toString(results)}]`)
       });
     }
   });
 }
 
-
-
-const updateEmployee = (req,res) => {
-
+const updateTeamMate = (req,res) => {
   const body = req.body;
   const id = parseInt(req.params.id);
 
-
   const {id_ext, status, fio, firstname, company_name, role, date_start, date_end, grade} = body;
 
-  console.log("updateEmployee", req.body, id_ext);
+  console.log("updateEmployee", req.body, id);
 
-  pool.query(queries.checkEmpExists, [fio, id_ext], (error, results) => {
+  pool.query(queries.checkTeamMateExists, [fio, id], (error, results) => {
     if (!results.rows.length ) {
       res.send({err_msg:`Fio ${fio} doesn't exist`});
     } else {
-      pool.query(queries.updateEmployee, [id, id_ext, status, fio, firstname, company_name, role, date_start, date_end, grade], (error, results) => {
+      pool.query(queries.updateTeamMate, [id, id_ext, status, fio, firstname, company_name, role, date_start, date_end, grade], (error, results) => {
         if (error) throw error;
         res.status(201).send(results.rows);
       });
@@ -93,5 +94,5 @@ const updateEmployee = (req,res) => {
 
 
 module.exports = {
-  getEmployees, getEmployeeById, addEmployee, deleteEmployeeById, updateEmployee
+  getTeam, getTeamMateById, addTeamMate, deleteTeamMateById, updateTeamMate
 };

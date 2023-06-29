@@ -1,0 +1,29 @@
+{
+  "name": "team_crud",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "pg-format": "^1.0.4",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "typescript": "~4.8.2"
+  },
+  "description": "35:00  https://www.npmjs.com/package/json-server?activeTab=readme\r npm i -g json-server    \r json-server --watch db.json",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

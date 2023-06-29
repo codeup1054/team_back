@@ -33,7 +33,7 @@ const addCompany = (req,res) => {
 
   pool.query(queries.checkCompanyExists, [company_name,id_ext], (error, results) => {
     if (results.rows.length) {
-      res.send("Company exist");
+      res.send(`Company exist ${company}`);
     } else {
       pool.query(queries.addCompany, [id,  id_ext, address,  contact,  status,  company_name], (error, results) => {
         if (error) throw error;

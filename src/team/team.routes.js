@@ -7,11 +7,11 @@ const router = Router();
 
 // app.use(express.json());
 
-router.get ('/', controller.getEmployees );
-router.post ('/', controller.addEmployee );
-router.put ('/:id', controller.updateEmployee );
-router.get ('/:id', controller.getEmployeeById );
-router.delete ('/:id', controller.deleteEmployeeById );
+router.get ('/', controller.getTeam );
+router.post ('/', controller.addTeamMate );
+router.put ('/:id', controller.updateTeamMate );
+router.get ('/:id', controller.getTeamMateById );
+router.delete ('/:id', controller.deleteTeamMateById );
 
 
 module.exports = router;
