@@ -2,7 +2,7 @@ const pool = require('../../db_env')
 const queries = require ("./data.queries")
 
 /**
-/*  *********** 01. ItemService 2023-06-07 *************
+/*  *********** 01. ItemService 2023-06-29 *************
  id,  id_ext, address,  contact,  status,  company_name,
  */
 
@@ -37,10 +37,8 @@ const getItemById = (req,res) => {
   console.log("get emp");
 };
 
-
 const addItem = (req,res) => {
   const {id,  id_ext, address,  contact,  status,  company} = req.body;
-
   pool.query(queries.checkItemExists, [company_name,id_ext], (error, results) => {
     if (results.rows.length) {
       res.send(`Item exist ${company}`);
